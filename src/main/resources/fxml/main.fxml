@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="0.0" prefHeight="900.0"
+      prefWidth="1600.0" xmlns="http://javafx.com/javafx/8.0.162" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="javafx.controller.MainController">
+    <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0"
+          style="-fx-background-color: grey; -fx-border-width: 1; -fx-border-color: #000;"
+          styleClass="appThemeContainer" stylesheets="@../css/application_style.css">
+        <VBox.margin>
+            <Insets left="10.0" right="10.0" top="10.0"/>
+        </VBox.margin>
+        <ImageView fitHeight="112.0" fitWidth="308.0" pickOnBounds="true" preserveRatio="true"
+                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 20, 0.75, 0, 0);">
+            <HBox.margin>
+                <Insets bottom="5.0" top="12.0"/>
+            </HBox.margin>
+            <Image url="@../image/app_logo.png"/>
+        </ImageView>
+    </HBox>
+    <HBox prefHeight="20.0" prefWidth="1600.0"
+          style="-fx-background-color: #000; -fx-effect: dropshadow(three-pass-box,  grey, 15, 0.5, 0, 1);">
+        <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0"/>
+        </VBox.margin>
+        <Label alignment="CENTER" prefHeight="17.0" prefWidth="100000.0"
+               text="Eksplorator plików graficznych, autor: Kamil Cieślik" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+            <HBox.margin>
+                <Insets bottom="2.0" top="2.0"/>
+            </HBox.margin>
+        </Label>
+    </HBox>
+    <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <VBox.margin>
+            <Insets bottom="13.0"/>
+        </VBox.margin>
+        <Region prefHeight="200.0" prefWidth="14.0"/>
+        <VBox maxWidth="500.0" prefHeight="854.0" prefWidth="460.0"
+              style="-fx-background-color: #000; -fx-effect: dropshadow(two-pass-box, #848484, 0, 0.5, -4, 5);"
+              HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                <VBox.margin>
+                    <Insets left="3.0" right="3.0" top="3.0"/>
+                </VBox.margin>
+                <Label text="Listing katalogów" textFill="WHITE">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Label>
+            </HBox>
+            <HBox style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                  VBox.vgrow="ALWAYS">
+                <VBox.margin>
+                    <Insets left="3.0" right="3.0" top="3.0"/>
+                </VBox.margin>
+                <TreeView fx:id="treeViewDirectories" onMouseReleased="#treeViewDirectories_onMouseReleased"
+                          prefHeight="637.0" prefWidth="593.0" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #000;">
+                <VBox alignment="CENTER" style="-fx-background-color: #545469;" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets left="10.0" right="10.0"/>
+                    </padding>
+                    <VBox.margin>
+                        <Insets bottom="3.0" left="3.0" right="3.0"/>
+                    </VBox.margin>
+                    <Button minHeight="25.0" minWidth="90.0" mnemonicParsing="false" onAction="#buttonSelectRoot"
+                            prefHeight="25.0" prefWidth="173.0"
+                            style="-fx-background-color: #268798; -fx-background-radius: 20; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                            text="Wybór korzenia katalogów" textFill="WHITE">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </Button>
+                </VBox>
+            </VBox>
+        </VBox>
+        <Separator orientation="VERTICAL" prefHeight="730.0" prefWidth="15.0" HBox.hgrow="ALWAYS">
+            <HBox.margin>
+                <Insets left="1.5"/>
+            </HBox.margin>
+        </Separator>
+        <VBox HBox.hgrow="ALWAYS">
+            <VBox prefHeight="854.0" prefWidth="460.0"
+                  style="-fx-background-color: #000; -fx-effect: dropshadow(two-pass-box, #848484, 0, 0.5, 4, 5);">
+                <padding>
+                    <Insets bottom="10.0"/>
+                </padding>
+                <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                    <VBox.margin>
+                        <Insets left="3.0" right="3.0" top="3.0"/>
+                    </VBox.margin>
+                    <Label text="Pliki graficzne w zaznaczonym katalogu" textFill="WHITE">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+                <HBox style="-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                      VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0"/>
+                    </VBox.margin>
+                    <VBox alignment="TOP_CENTER"
+                          style="-fx-background-color: #39393c; -fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 15, 0.0 , 0 , 2 );"
+                          HBox.hgrow="ALWAYS">
+                        <ScrollPane fx:id="scrollPaneImages" pannable="true" prefHeight="200.0" prefWidth="200.0"
+                                    vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                            <FlowPane fx:id="flowPaneImages" maxHeight="1.7976931348623157E308"
+                                      maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="564.0">
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                </padding>
+                            </FlowPane>
+                        </ScrollPane>
+                    </VBox>
+                </HBox>
+                <HBox style="-fx-background-color: #000;">
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                    <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #000;"
+                          HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                        <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                            <VBox.margin>
+                                <Insets bottom="3.0" top="3.0"/>
+                            </VBox.margin>
+                            <Label text="Akcje dla wszystkich plików" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" style="-fx-background-color: #545469;" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets left="10.0" right="10.0"/>
+                            </padding>
+                            <Label prefHeight="25.0" prefWidth="735.0"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                   text="Obrót:" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                            <HBox alignment="CENTER">
+                                <Button mnemonicParsing="false" onAction="#buttonFilesTurnLeft_onAction"
+                                        prefHeight="16.0" prefWidth="46.0"
+                                        style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <graphic>
+                                        <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <Image url="@../image/arrow.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
+                                <Button mnemonicParsing="false" prefHeight="16.0" prefWidth="46.0"
+                                        style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <graphic>
+                                        <ImageView fitHeight="30.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT"
+                                                   onDragDetected="#buttonFilesTurnRight_onAction"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <Image url="@../image/arrow.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                    <HBox.margin>
+                                        <Insets left="100.0"/>
+                                    </HBox.margin>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
+                            </HBox>
+                            <Label prefHeight="25.0" prefWidth="735.0"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                   text="Rozmiar:" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                            <Slider fx:id="sliderFiles"
+                                    style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                                    value="50.0">
+                                <VBox.margin>
+                                    <Insets top="3.0"/>
+                                </VBox.margin>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </Slider>
+                            <HBox alignment="CENTER">
+                                <VBox.margin>
+                                    <Insets bottom="10.0" top="10.0"/>
+                                </VBox.margin>
+                                <Label maxWidth="60.0" minWidth="60.0" prefHeight="25.0" prefWidth="60.0"
+                                       style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                       text="Pluginy:" textFill="WHITE">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Label>
+                                <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                                <ComboBox fx:id="comboBoxFiles" onAction="#comboBoxFiles_onAction" prefHeight="25.0"
+                                          prefWidth="218.0"
+                                          style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                </ComboBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                    <Region minWidth="3.0">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                    </Region>
+                    <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #000;"
+                          HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                            <Insets right="10.0"/>
+                        </HBox.margin>
+                        <HBox alignment="CENTER" style="-fx-background-color: grey;">
+                            <VBox.margin>
+                                <Insets bottom="3.0" top="3.0"/>
+                            </VBox.margin>
+                            <Label text="Akcje dla wszystkich plików" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                        </HBox>
+                        <VBox alignment="TOP_CENTER" style="-fx-background-color: #545469;" VBox.vgrow="ALWAYS">
+                            <padding>
+                                <Insets left="10.0" right="10.0"/>
+                            </padding>
+                            <Label prefHeight="25.0" prefWidth="735.0"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                   text="Obrót:" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                            <HBox alignment="CENTER">
+                                <Button mnemonicParsing="false" onAction="#buttonSelectedFileTurnLeft_onAction"
+                                        prefHeight="16.0" prefWidth="46.0"
+                                        style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <graphic>
+                                        <ImageView fitHeight="30.0" fitWidth="25.0" pickOnBounds="true"
+                                                   preserveRatio="true">
+                                            <Image url="@../image/arrow.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
+                                <Button mnemonicParsing="false" onAction="#buttonSelectedFileTurnRight_onAction"
+                                        prefHeight="16.0" prefWidth="46.0"
+                                        style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <graphic>
+                                        <ImageView fitHeight="30.0" fitWidth="25.0" nodeOrientation="RIGHT_TO_LEFT"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <Image url="@../image/arrow.png"/>
+                                        </ImageView>
+                                    </graphic>
+                                    <HBox.margin>
+                                        <Insets left="100.0"/>
+                                    </HBox.margin>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Button>
+                            </HBox>
+                            <Label prefHeight="25.0" prefWidth="735.0"
+                                   style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                   text="Rozmiar:" textFill="WHITE">
+                                <font>
+                                    <Font size="16.0"/>
+                                </font>
+                            </Label>
+                            <Slider fx:id="sliderSelectedFile"
+                                    style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);"
+                                    value="50.0">
+                                <VBox.margin>
+                                    <Insets top="3.0"/>
+                                </VBox.margin>
+                                <cursor>
+                                    <Cursor fx:constant="HAND"/>
+                                </cursor>
+                            </Slider>
+                            <HBox alignment="CENTER">
+                                <Label maxWidth="60.0" minWidth="60.0" prefHeight="25.0" prefWidth="60.0"
+                                       style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 5, 0, 4, 4);"
+                                       text="Pluginy:" textFill="WHITE">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Label>
+                                <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                                <ComboBox fx:id="comboBoxSelectedFile" onAction="#comboBoxSelectedFile_onAction"
+                                          prefHeight="25.0" prefWidth="218.0"
+                                          style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0); -fx-background-color: #268798; -fx-background-radius: 20;">
+                                    <HBox.margin>
+                                        <Insets/>
+                                    </HBox.margin>
+                                </ComboBox>
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+        <Region prefHeight="200.0" prefWidth="14.0"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,5 @@
+.appThemeContainer {
+    -fx-background-image: url("../image/app_theme.jpg");
+    -fx-border-image-repeat: no-repeat;
+    -fx-background-size: cover;
+}
