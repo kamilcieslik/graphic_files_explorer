@@ -32,12 +32,14 @@ public class Directory {
 
     public List<File> getSubdirectories() {
         List<File> subdirectories = new ArrayList<>();
-        Arrays.asList(Objects.requireNonNull(directory.listFiles())).forEach(file -> {
-            if (file.isDirectory())
-                subdirectories.add(file);
-            else
-                addImageFile(file);
-        });
+        if (directory.listFiles() != null) {
+            Arrays.asList(Objects.requireNonNull(directory.listFiles())).forEach(file -> {
+                if (file.isDirectory())
+                    subdirectories.add(file);
+                else
+                    addImageFile(file);
+            });
+        }
         return subdirectories;
     }
 
