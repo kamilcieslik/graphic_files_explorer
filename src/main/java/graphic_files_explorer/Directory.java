@@ -14,20 +14,8 @@ public class Directory {
         this.directory = directory;
     }
 
-    public File getDirectory() {
-        return directory;
-    }
-
-    public void setDirectory(File directory) {
-        this.directory = directory;
-    }
-
     public List<ImageFile> getImageFiles() {
         return imageFiles;
-    }
-
-    public void setImageFiles(List<ImageFile> imageFiles) {
-        this.imageFiles = imageFiles;
     }
 
     public List<File> getSubdirectories() {
@@ -41,11 +29,6 @@ public class Directory {
             });
         }
         return subdirectories;
-    }
-
-    public void loadOrReloadImageFiles() {
-        imageFiles.clear();
-        Arrays.stream(Objects.requireNonNull(directory.listFiles())).forEach(this::addImageFile);
     }
 
     private void addImageFile(File file) {

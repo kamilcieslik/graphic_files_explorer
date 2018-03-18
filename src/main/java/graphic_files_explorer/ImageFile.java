@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import javax.swing.*;
 import java.io.File;
 import java.lang.ref.SoftReference;
 
@@ -19,7 +20,7 @@ public class ImageFile extends StackPane implements Runnable {
     private VBox vBoxImageViewWithName;
     private Boolean eventHandlerExist = false;
 
-    public ImageFile(File imageSource) {
+    ImageFile(File imageSource) {
         this.imageSource = imageSource;
         imageSoftReference = new SoftReference<>(null);
 
@@ -53,10 +54,6 @@ public class ImageFile extends StackPane implements Runnable {
         this.eventHandlerExist = eventHandlerExist;
     }
 
-    public Double getImageSize() {
-        return imageSize;
-    }
-
     public void rotateLeft(Double rotateValue) {
         vBoxImageView.setRotate(vBoxImageView.getRotate() - rotateValue);
 
@@ -81,34 +78,8 @@ public class ImageFile extends StackPane implements Runnable {
         return imageSource;
     }
 
-    public void setImageSource(File imageSource) {
-        this.imageSource = imageSource;
-    }
-
-    public ImageView getImageView() {
-        return imageView;
-    }
-
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
-
-    public SoftReference<Image> getImageSoftReference() {
-        return imageSoftReference;
-    }
-
-    public void setImageSoftReference(SoftReference<Image> imageSoftReference) {
-        this.imageSoftReference = imageSoftReference;
-    }
-
-    public void setSizes(double minWidth, double minHeight, double prefWidth, double prefHeight, double maxWidth,
-                         double maxHeight) {
-        setMinWidth(minWidth);
-        setMinHeight(minHeight);
-        setPrefWidth(prefWidth);
-        setPrefHeight(prefHeight);
-        setMaxWidth(maxWidth);
-        setMaxHeight(maxHeight);
+    public void loadImage() {
+        SwingUtilities.invokeLater(this);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package app;
 
 import graphic_files_explorer.ImageFile;
+import javafx.CustomMessageBox;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,9 +15,11 @@ import java.util.logging.Logger;
 
 public class GraphicFilesExplorer extends Application {
     public static ImageFile selectedImageFile;
+    public static CustomMessageBox customMessageBox;
 
     @Override
     public void start(Stage primaryStage) {
+        customMessageBox = new CustomMessageBox("image/app_icon.png");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getClassLoader().getResource("fxml/main.fxml"));

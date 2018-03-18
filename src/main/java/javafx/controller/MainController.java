@@ -1,8 +1,8 @@
 package javafx.controller;
 
+import app.GraphicFilesExplorer;
 import graphic_files_explorer.Directory;
 import graphic_files_explorer.ImageFile;
-import javafx.CustomMessageBox;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,7 +27,6 @@ import java.util.logging.Logger;
 import static app.GraphicFilesExplorer.selectedImageFile;
 
 public class MainController implements Initializable {
-    private CustomMessageBox customMessageBox;
     private Directory selectedDirectory;
     private static double sliderStartValue = 90.0;
 
@@ -45,8 +43,6 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        customMessageBox = new CustomMessageBox("image/app_icon.png");
-
         flowPaneImages.prefWidthProperty().bind(scrollPaneImages.widthProperty());
         flowPaneImages.prefHeightProperty().bind(scrollPaneImages.heightProperty());
 
@@ -83,7 +79,7 @@ public class MainController implements Initializable {
                 Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ioEcx);
             }
         } else
-            customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
+            GraphicFilesExplorer.customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
                     "Operacja otworzenia okna edycji obrazu nie powiedzie się.",
                     "Powód: nie zaznaczono obrazu.")
                     .showAndWait();
@@ -111,7 +107,7 @@ public class MainController implements Initializable {
             if (selectedDirectory.getImageFiles() != null) {
                 sliderFiles.setValue(sliderStartValue);
                 selectedDirectory.getImageFiles().forEach(image -> {
-                            SwingUtilities.invokeLater(image);
+                            image.loadImage();
                             if (!image.getEventHandlerExist())
                                 image.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                         event -> setSelectedImageFileComponents(image, event));

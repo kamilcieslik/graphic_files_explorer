@@ -32,7 +32,7 @@
                         <configuration>
                             <transformers>
                                 <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        implementation="org.apache.maven.plugin.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
                                         <Main-Class>app.GraphicFilesExplorer</Main-Class>
                                         <Build-Number>1</Build-Number>
