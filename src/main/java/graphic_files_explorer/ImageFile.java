@@ -8,12 +8,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
-import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
 
 public class ImageFile extends StackPane implements Runnable {
     private File imageSource;
     private ImageView imageView;
-    private SoftReference<Image> imageSoftReference;
+    private WeakReference<Image> imageWeakReference;
     private Double imageSize = 50.0;
     private VBox vBoxImageView;
     private VBox vBoxImageViewWithName;
@@ -21,7 +21,7 @@ public class ImageFile extends StackPane implements Runnable {
 
     ImageFile(File imageSource) {
         this.imageSource = imageSource;
-        imageSoftReference = new SoftReference<>(null);
+        imageWeakReference = new WeakReference<>(null);
 
         imageView = new ImageView();
         imageView.setPreserveRatio(true);
@@ -79,9 +79,9 @@ public class ImageFile extends StackPane implements Runnable {
 
     @Override
     public void run() {
-        if (imageSoftReference.get() == null)
+        if (imageWeakReference.get() == null)
             if (imageSource.exists())
-                imageSoftReference = new SoftReference<>(new Image("file:" + imageSource.getPath()));
-        imageView.setImage(imageSoftReference.get());
+                imageWeakReference = new WeakReference<>(new Image("file:" + imageSource.getPath()));
+        imageView.setImage(imageWeakReference.get());
     }
 }
