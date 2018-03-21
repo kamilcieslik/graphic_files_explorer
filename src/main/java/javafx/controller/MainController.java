@@ -17,6 +17,7 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -54,6 +55,26 @@ public class MainController implements Initializable {
                 selectedDirectory.getImageFiles().forEach(image ->
                         image.setImageSize((Double) newValue));
         });
+    }
+
+    @FXML
+    void menuItemPluginsDirectoryPath_onAction() {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Wybór lokalizacji pluginów");
+        File directory = chooser.showDialog(sliderFiles.getScene().getWindow());
+        if (directory != null) {
+            GraphicFilesExplorer.pref.put("graphic_file_explorer_plugins_directory", directory.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    void buttonTest() {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setTitle("Wybór lokalizacji zapisu szablonu życzeń");
+        File directory = chooser.showDialog(sliderFiles.getScene().getWindow());
+        if (directory != null) {
+            System.out.println(directory.getAbsolutePath());
+        }
     }
 
     @FXML
@@ -107,7 +128,7 @@ public class MainController implements Initializable {
             if (selectedDirectory.getImageFiles() != null) {
                 sliderFiles.setValue(sliderStartValue);
                 selectedDirectory.getImageFiles().forEach(image -> {
-                            image.loadImage();
+                            SwingUtilities.invokeLater(image);
                             if (!image.getEventHandlerExist())
                                 image.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                         event -> setSelectedImageFileComponents(image, event));

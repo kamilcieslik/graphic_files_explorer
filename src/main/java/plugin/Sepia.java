@@ -1,6 +1,5 @@
 package plugin;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
@@ -12,7 +11,8 @@ public class Sepia {
     }
 
     public Image transformImage(Image input) {
-        BufferedImage bufferedImageInput = SwingFXUtils.fromFXImage(input, null);
+        FxImageConverter fxImageConverter = new FxImageConverter();
+        BufferedImage bufferedImageInput = fxImageConverter.fxImageToBufferedImage(input);
 
         int sepiaDepth = 20;
         int[] imagePixels = bufferedImageInput.getRGB(0, 0, bufferedImageInput.getWidth(),
@@ -49,7 +49,7 @@ public class Sepia {
 
         BufferedImage sepiaImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), BufferedImage.TYPE_INT_ARGB);
         sepiaImage.setRGB(0, 0, bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), imagePixels, 0, bufferedImageInput.getWidth());
-        return SwingFXUtils.toFXImage(sepiaImage, null);
+        return fxImageConverter.bufferedImageToFxImage(sepiaImage);
     }
 
     public String toString() {

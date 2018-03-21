@@ -65,10 +65,20 @@ public class ImageViewController implements Initializable {
         sliderImage.valueProperty().addListener((observable, oldValue, newValue) -> setImageSize((Double) newValue));
 
         try {
-            pluginsClassLoader = new PluginsClassLoader("plugin");
+            initClassLoader();
             new Thread(this::initPluginsList).start();
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             comboBoxPlugins.setEditable(false);
+            buttonUnloadPlugins_onAction();
+        }
+    }
+
+    @FXML
+    void buttonUnloadPlugins_onAction() {
+        if (pluginsClassLoader != null) {
+            pluginsClassLoader.unloadClasses();
+            pluginsClassLoader = null;
+            System.gc();
         }
     }
 
@@ -110,14 +120,22 @@ public class ImageViewController implements Initializable {
     }
 
     private void setEffect(String plugin) {
-        if (plugin == null)
-            if (image == null)
-                image = new Image("file:" + imageSource.getPath());
-            else
-                imageView.setImage(image);
-        else
+        if (pluginsClassLoader == null) {
             try {
-                imageView.setImage(pluginsClassLoader.invokeImageTransformMethod(plugin, "transformImage", image));
+                initClassLoader();
+            } catch (IOException e) {
+                comboBoxPlugins.setEditable(false);
+                return;
+            }
+        }
+
+        if (plugin == null) {
+            image = new Image("file:" + imageSource.getPath());
+            imageView.setImage(image);
+        } else
+            try {
+                image = pluginsClassLoader.invokeImageTransformMethod(plugin, "transformImage", image);
+                imageView.setImage(image);
             } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
                 GraphicFilesExplorer.customMessageBox.showMessageBox(Alert.AlertType.WARNING, "Ostrzeżenie",
@@ -125,5 +143,10 @@ public class ImageViewController implements Initializable {
                         "Powód: " + e.getMessage() + ".")
                         .showAndWait();
             }
+    }
+
+    private void initClassLoader() throws IOException {
+        pluginsClassLoader = new PluginsClassLoader(ImageViewController.class.getClassLoader(),
+                "file:" + GraphicFilesExplorer.pref.get("graphic_file_explorer_plugins_directory", ""));
     }
 }

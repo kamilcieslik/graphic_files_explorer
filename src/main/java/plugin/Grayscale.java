@@ -1,6 +1,5 @@
 package plugin;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.awt.*;
@@ -13,7 +12,8 @@ public class Grayscale {
     }
 
     public Image transformImage(Image input) {
-        BufferedImage bufferedImageInput = SwingFXUtils.fromFXImage(input, null);
+        FxImageConverter fxImageConverter = new FxImageConverter();
+        BufferedImage bufferedImageInput = fxImageConverter.fxImageToBufferedImage(input);
 
         BufferedImage grayscaleImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(),
                 BufferedImage.TYPE_INT_ARGB);
@@ -33,7 +33,7 @@ public class Grayscale {
             }
         }
 
-        return SwingFXUtils.toFXImage(grayscaleImage, null);
+        return fxImageConverter.bufferedImageToFxImage(grayscaleImage);
     }
 
     public String toString() {

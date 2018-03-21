@@ -1,6 +1,5 @@
 package plugin;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.awt.*;
@@ -13,7 +12,8 @@ public class Saturation {
     }
 
     public Image transformImage(Image input) {
-        BufferedImage bufferedImageInput = SwingFXUtils.fromFXImage(input, null);
+        FxImageConverter fxImageConverter = new FxImageConverter();
+        BufferedImage bufferedImageInput = fxImageConverter.fxImageToBufferedImage(input);
 
         int[] imagePixels = bufferedImageInput.getRGB(0, 0, bufferedImageInput.getWidth(),
                 bufferedImageInput.getHeight(), null, 0, bufferedImageInput.getWidth());
@@ -22,9 +22,9 @@ public class Saturation {
             imagePixels[i] = calculatePixel(imagePixels[i]);
         }
 
-        BufferedImage sepiaImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        sepiaImage.setRGB(0, 0, bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), imagePixels, 0, bufferedImageInput.getWidth());
-        return SwingFXUtils.toFXImage(sepiaImage, null);
+        BufferedImage saturationImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        saturationImage.setRGB(0, 0, bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), imagePixels, 0, bufferedImageInput.getWidth());
+        return fxImageConverter.bufferedImageToFxImage(saturationImage);
     }
 
     private int calculatePixel(int pixel) {

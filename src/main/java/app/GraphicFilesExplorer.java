@@ -12,10 +12,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 
 public class GraphicFilesExplorer extends Application {
     public static ImageFile selectedImageFile;
     public static CustomMessageBox customMessageBox;
+    public static Preferences pref;
 
     @Override
     public void start(Stage primaryStage) {
@@ -55,6 +57,7 @@ public class GraphicFilesExplorer extends Application {
     }
 
     public static void main(String[] args) {
+        pref = Preferences.userRoot();
         launch(args);
     }
 }

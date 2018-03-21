@@ -7,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import javax.swing.*;
 import java.io.File;
 import java.lang.ref.SoftReference;
 
@@ -76,10 +75,6 @@ public class ImageFile extends StackPane implements Runnable {
 
     public File getImageSource() {
         return imageSource;
-    }
-
-    public void loadImage() {
-        SwingUtilities.invokeLater(this);
     }
 
     @Override

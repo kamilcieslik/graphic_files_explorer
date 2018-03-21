@@ -1,9 +1,7 @@
 package plugin;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Invert {
@@ -13,7 +11,8 @@ public class Invert {
     }
 
     public Image transformImage(Image input) {
-        BufferedImage bufferedImageInput = SwingFXUtils.fromFXImage(input, null);
+        FxImageConverter fxImageConverter = new FxImageConverter();
+        BufferedImage bufferedImageInput = fxImageConverter.fxImageToBufferedImage(input);
 
         int[] imagePixels = bufferedImageInput.getRGB(0, 0, bufferedImageInput.getWidth(),
                 bufferedImageInput.getHeight(), null, 0, bufferedImageInput.getWidth());
@@ -22,9 +21,9 @@ public class Invert {
             imagePixels[i] = calculatePixel(imagePixels[i]);
         }
 
-        BufferedImage sepiaImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        sepiaImage.setRGB(0, 0, bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), imagePixels, 0, bufferedImageInput.getWidth());
-        return SwingFXUtils.toFXImage(sepiaImage, null);
+        BufferedImage invertImage = new BufferedImage(bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        invertImage.setRGB(0, 0, bufferedImageInput.getWidth(), bufferedImageInput.getHeight(), imagePixels, 0, bufferedImageInput.getWidth());
+        return fxImageConverter.bufferedImageToFxImage(invertImage);
     }
 
     private int calculatePixel(int pixel) {
